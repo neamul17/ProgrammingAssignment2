@@ -1,25 +1,23 @@
-setwd("C:/Users/Neamul/Desktop/ProgrammingAssignment2-master")
-makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
-  s <- NULL
-  set <- function(y) {
+makeCacheMatrix <- function(x = matrix()) {
+  i <- NULL
+  set <- function(y){
     x <<- y
-    s <<- NULL
+    i <<- NULL
   }
-  get <- function() x
-  setsolve <- function(solve) s <<- solve
-  getsolve <- function() s
-  list(set = set, get = get,
-       setsolve = setsolve,
-       getsolve = getsolve)
+  get <- function()x
+  setinverse <- function(solve) i <<- solve
+  getinverse <- function() i
+  list(set = set, get = get, setinverse = setinverse,getinverse=getinverse)
 }
 cacheSolve <- function(x, ...) {
-  s <- x$getsolve()
-  if(!is.null(s)) {
-    message("getting inversed matrix")
-    return(s)
+        ## Return a matrix that is the inverse of 'x'
+  i <- x$getinverse()
+  if(!is.null(x)){
+    message("getting cached data")
+    return(i)
   }
   data <- x$get()
-  s <- solve(data, ...)
-  x$setsolve(s)
-  s
+  i <- solve(data, ...)
+  x$setinverse(i)
+  i
 }
